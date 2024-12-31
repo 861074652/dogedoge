@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,6 +55,45 @@
             height: 100px;
             background: radial-gradient(circle at 30% 30%, #ffffff, #dddddd);
             border-radius: 50%;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-top: 10%;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            #countdown {
+                font-size: 1rem;
+            }
+            .moon {
+                width: 70px;
+                height: 70px;
+                top: 5%;
+                right: 5%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+                margin-top: 15%;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            #countdown {
+                font-size: 0.9rem;
+            }
+            .moon {
+                width: 50px;
+                height: 50px;
+                top: 5%;
+                right: 5%;
+            }
         }
     </style>
 </head>
@@ -204,19 +243,20 @@
         function updateCountdown() {
             const now = new Date();
             const nextYear = new Date(`January 1, 2025 00:00:00`);
-            const diff = nextYear - now;
+            const timeDifference = nextYear - now;
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').innerHTML = 
-                `距离2025还剩: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (diff <= 0) {
-                document.getElementById('countdown').innerHTML = '🎉 Happy New Year 2025! 🎉';
+            if (timeDifference <= 0) {
+                document.getElementById('countdown').innerText = "Happy New Year!";
+                return;
             }
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText =
+                `距离2025年还剩： ${hours} 时 ${minutes} 分 ${seconds} 秒`;
         }
 
         setInterval(updateCountdown, 1000);
